@@ -4,10 +4,12 @@ namespace App\Requests;
 
 use Exception;
 
+require_once __DIR__ . '/CurlFuncs.php';
+
 /**
  * Lida com as requisições http
  */
-final class HttpRequest
+class Request
 {
     public static function get(): object
     {
@@ -37,10 +39,21 @@ final class HttpRequest
         return throw new Exception("O metodo http não corresponde com a requisição!");
     }
 
-    public static function send(string $method, ?array $body = null): array
+    public static function sendGet(string $url, ?array $body = null): string|false
     {
-        $response = [];
+        $cUrl = new CurlFuncs;
+        
+        return $cUrl->makeGet($url);
+    }
 
+    public static function sendPost(string $url, ?array $body = []): string
+    {
+        $cUrl = new CurlFuncs;
+        $cUrl->init();
+        $cUrl->options($url, true, body: $body);
+        $response = $cUrl->execute(null);
+        $cUrl->close(null);
+        
         return $response;
     }
 }

@@ -5,19 +5,19 @@ namespace App\DTO;
 class TransferDTO
 {
     public function __construct(
-        public float $valor,
-        public int $pagador,
-        public int $recebedor,
+        public float $value,
+        public int $payer,
+        public int $payee,
     ) {
         //
     }
 
-    public static function make(object $httpRequest): self
+    public static function make(object $request): self
     {
         return new self(
-            $httpRequest->value,
-            $httpRequest->payer,
-            $httpRequest->payee,
+            floatval($request->value),
+            intval($request->payer),
+            intval($request->payee),
         );
     }
 }

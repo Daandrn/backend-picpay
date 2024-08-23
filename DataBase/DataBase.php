@@ -2,17 +2,16 @@
 
 namespace DataBase;
 
+use Env;
 use Exception;
 use PDO;
 use PDOException;
 
+require_once __DIR__ . '/../env.php';
+
 class DataBase
 {
-    private static string $drive = 'pgsql';
-    private static string $host = 'localhost';
-    private static string $dataBase = 'postgres';
-    private static string $user = 'postgres';
-    private static string $password = '';
+    use Env;
 
     public static function conn(
         string $drive = null,
@@ -21,16 +20,16 @@ class DataBase
         string $user = null,
         string $password = null,
     ): PDO|Exception {
-        $drive ??= self::$drive;
-        $host ??= self::$host;
-        $dataBase ??= self::$dataBase;
-        $user ??= self::$user;
-        $password ??= self::$password;
+        $drive    ??= self::DRIVE;
+        $host     ??= self::HOST;
+        $dataBase ??= self::DATA_BASE;
+        $user     ??= self::USER;
+        $password ??= self::PASSWORD;
 
         try {
             return new PDO("{$drive}:host={$host};dbname={$dataBase}", $user, $password);
         } catch (PDOException $error) {
-            throw new Exception("Erro na conecção ao bando de dados: " . $error->getMessage());
+            throw new Exception("Erro na conexão ao bando de dados: " . $error->getMessage());
         }
     }
 }

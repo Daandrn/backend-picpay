@@ -16,7 +16,7 @@ class Route
                 'transfer' => 'transfer'
             ],
             'GET' => [
-                'instalarApp' => 'instalarApp'
+                'appInstall' => 'appInstall'
             ]
         ];
 

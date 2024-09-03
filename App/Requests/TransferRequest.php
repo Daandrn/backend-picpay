@@ -10,20 +10,17 @@ class TransferRequest extends Request
     public float $value;
     public int $payer;
     public int $payee;
-
-    public function __construct()
+    
+    public function post1(): self
     {
         $request = parent::post();
-
+    
         $this->validation($request);
         
         $this->value = floatval($request->value);
         $this->payer = intval($request->payer);
         $this->payee = intval($request->payee);
-    }
-    
-    public function post1(): self
-    {
+
         return $this;
     }
     

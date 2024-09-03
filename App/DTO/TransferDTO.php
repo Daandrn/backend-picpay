@@ -1,6 +1,9 @@
 <?php declare(strict_types=1);
 
 namespace App\DTO;
+use App\Requests\TransferRequest;
+
+require_once __DIR__ . "/../Requests/TransferRequest.php";
 
 class TransferDTO
 {
@@ -12,12 +15,12 @@ class TransferDTO
         //
     }
 
-    public static function make(object $request): self
+    public static function make(TransferRequest $request): self
     {
         return new self(
-            floatval($request->value),
-            intval($request->payer),
-            intval($request->payee),
+            $request->value,
+            $request->payer,
+            $request->payee,
         );
     }
 }

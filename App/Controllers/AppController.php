@@ -7,7 +7,7 @@ use App\Interfaces\Authorizer;
 use App\Interfaces\Mailer;
 use App\Microservices\DevToolsAuthorizer;
 use App\Microservices\UserMailer;
-use App\Requests\{ApiResponse, Request, TransferRequest};
+use App\Requests\{ApiResponse, TransferRequest};
 use App\Services\TransferService;
 use DataBase\AppInstall;
 
@@ -38,9 +38,7 @@ class AppController
 
     public function transfer(): ApiResponse
     {
-        $request = (new Request)->post();
-
-        $this->transferRequest->validation($request);
+        $request = $this->transferRequest->post1();
 
         $response = $this->transferService->makeTransfer(
             TransferDTO::make($request),
